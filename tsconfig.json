@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "module": "ESNext",
+    "module": "CommonJS",
     "skipLibCheck": true,
 
     "rootDir": "./src",
@@ -12,7 +12,7 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": true,988888888888888888888888888888888888888888888888
     "jsx": "react-jsx",
 
     /* Linting */

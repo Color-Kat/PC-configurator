@@ -5,10 +5,12 @@ import {
     RouterProvider,
 } from "react-router-dom";
 
+import Configurator from "@pages/configurator/Configurator";
+
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <div>Hello world!👨🏻</div>,
+        element: <Configurator />,
     },
 ]);
 
