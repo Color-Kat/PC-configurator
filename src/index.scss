@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "./scss/fonts";
+
+.app-bg {
+  background: #0B2217;
+}
+
+.app-accent {
+  background: #62B03B;
+}
