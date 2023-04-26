@@ -4,22 +4,16 @@
 
 @import "./scss/fonts";
 
-//.app-bg {
-//  background: #1a1a1d;
-//}
-//
-//.app-bg-dark {
-//  background: #0f0f0f;
-//}
-//
-//.app-bg-accent {
-//  background: #AA1D27;
-//}
-//
-//.app-text-gray {
-//  color: #1a1a1d;
-//}
-//
-//.app-text-light {
-//  color: #f1f1f1;
-//}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+button:focus { outline:0 !important; }

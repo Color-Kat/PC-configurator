@@ -32,9 +32,10 @@ export class PCConfig implements PCConfigI{
     public fans = defaultPCItemData;
 
     constructor(
-        data: PCConfigI
+        data?: PCConfigI
     ) {
-        // noinspection TypeScriptValidateTypes
-        Object.assign(this, data);
+        if(data)
+            // noinspection TypeScriptValidateTypes
+            Object.assign(this, data);
     }
 }
