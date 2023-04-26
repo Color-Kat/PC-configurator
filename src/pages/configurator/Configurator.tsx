@@ -12,8 +12,10 @@ interface PCItemInterface {
 
 const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
 
-    const [link, setLink] = useState('');
-
+    /**
+     * Change PC part key value by input name attribute
+     * @param e
+     */
     const changeFormHandler = (e: any) => {
         const key = e.target.name;
         const value = e.target.value;
@@ -23,12 +25,18 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
         });
     }
 
+    /**
+     * Increase PC part quantity
+     */
     const increaseQuantity = () => {
         changeDataByType(type, {
             quantity: +data[type].quantity + 1
         });
     }
 
+    /**
+     * Decrease PC part quantity
+     */
     const decreaseQuantity = () => {
         if (data[type].quantity <= 1) return;
 
@@ -118,6 +126,8 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
     );
 }
 
+const apiToken = 'yFQLEIdPYXKRIIDpyXFz7R0wi9AgzbFV3fYwfcBQT4HGvZdZMcNAav2H3U3v';
+
 const Configurator: React.FC<{}> = ({}) => {
     const [data, setData] = useState(new PCConfig());
 
@@ -141,6 +151,43 @@ const Configurator: React.FC<{}> = ({}) => {
         );
     }, [data]);
 
+    const [hasCopied, setHasCopied] = useState(false);
+
+    /**
+     * Generate link with PCConfig data,
+     * short this link by yandex clck.ru
+     * and copy to clipboard.
+     */
+    const copyLink = useCallback(async () => {
+        setHasCopied(true);
+
+        let longURL = new URL((window.location as any).href);
+
+        // Save all PCConfig data to link
+        Object.keys(data).forEach(type => {
+            if(!data[type]) return;
+
+            Object.keys(data[type]).forEach(key => {
+                if(!data[type][key]) return;
+                longURL.searchParams.append(
+                    type + '_' + key,
+                    data[type][key]
+                )
+            })
+        });
+
+        // Use yandex clck.ru for get short link
+        const response = await fetch(
+            `https://clck.ru/--?url=${encodeURIComponent(longURL.href)}`,
+        )
+        const short_link = await response.text();
+
+        navigator.clipboard.writeText(short_link);
+
+        setTimeout(() => setHasCopied(false), 1000)
+    }
+    , [data]);
+
     return (
         <Section className="px-6 py-6">
 
@@ -159,7 +206,16 @@ const Configurator: React.FC<{}> = ({}) => {
                 <PCItem type="fans" data={data} changeDataByType={changeDataByType}/>
             </div>
 
-            <div className="mt-7 pt-7 border-t border-red-600">
+            <div className="flex justify-between items-center mt-7 pt-7 border-t border-red-600">
+
+                <button
+                    className="py-2 px-3 rounded-lg font-bold text-xl bg-gradient-to-r hover:from-red-600 from-red-500 to-red-800 text-center"
+                    onClick={copyLink}
+                >
+                    {
+                        hasCopied ? 'Скопировано' : 'Скопировать ссылку'
+                    }
+                </button>
 
                 <div className="text-3xl font-bold font-sans text-right">Итого: {totalPrice} ₽</div>
 
