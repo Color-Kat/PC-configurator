@@ -15,6 +15,7 @@ export default defineConfig({
         outDir: path.join(__dirname, "public"),
 
     },
+    base: './',
     plugins: [
         react({}),
     ],

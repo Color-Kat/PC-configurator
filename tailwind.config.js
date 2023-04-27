@@ -4,6 +4,13 @@ module.exports = {
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
+    purge: [
+        "./src/**/*.ts",
+        "./src/**/*.js",
+        "./src/**/*.jsx",
+        "./src/**/*.tsx",
+        "./index.html",
+    ],
     theme  : {
         extend: {
             colors: {
