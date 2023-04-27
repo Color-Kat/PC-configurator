@@ -1,7 +1,8 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {Section} from "@UI/sections/Section";
 import {partTypes, PCItemData} from "./configuratorTypes";
 import {defaultPCItemData, PCConfig, PCConfigI} from "./PCConfig";
+import {shortURL} from "../../utils/shortURL";
 
 
 interface PCItemInterface {
@@ -16,13 +17,25 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
      * Change PC part key value by input name attribute
      * @param e
      */
-    const changeFormHandler = (e: any) => {
+    const changeFormHandler = async (e: any) => {
         const key = e.target.name;
-        const value = e.target.value;
+        const value: string = e.target.value;
 
         changeDataByType(type, {
             [key]: value
         });
+
+        // Change to short url
+        if (
+            key == 'link' && // Only for link field
+            !value.includes('clck.ru') && // Don't short already short links
+            value.includes('http') && // Make short only links
+            value.length > "http://clck.ru".length // Minimum link length (so user can remove link by backspace)
+        ) {
+            changeDataByType(type, {
+                [key]: await shortURL(value)
+            });
+        }
     }
 
     /**
@@ -45,12 +58,16 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
         });
     }
 
+    /**
+     * Open page by link of this PC part
+     */
     const followLink = useCallback(() => {
+        if (!data[type].link) return;
         window.open(data[type].link, '_blank').focus();
     }, [data]);
 
     return (
-        <div className="w-full md:px-3 px-1.5 py-4 grid md:grid-cols-5 gap-4">
+        <div className="w-full md:px-3 sm:px-1.5 py-4 grid md:grid-cols-5 gap-4">
             <div className="col-span-1 flex justify-center items-center cursor-pointer">
                 <h3
                     className="text-gray-400 hover:text-gray-300 font-roboto font-medium text-xl"
@@ -63,7 +80,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
             <div className="flex md:flex-col flex-col-reverse md:col-span-3 gap-2 md:gap-0 items-center">
                 <div className="md:grid md:grid-cols-3 gap-2 w-full flex flex-col-reverse">
                     <input
-                        className="md:col-span-2 h-10 px-3 md:py-1 py-2.5 md:mb-1 rounded-xl text-gray-300 flex flex-1 shadow bg-app outline-none md:text-left text-center"
+                        className="md:col-span-2 md:h-10 h-14 px-3 md:py-1 py-2.5 md:mb-1 rounded-xl text-gray-300 flex flex-1 shadow bg-app outline-none md:text-left text-center"
                         type="text"
                         placeholder="Название товара"
                         autoComplete="off"
@@ -73,7 +90,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                     />
 
                     <input
-                        className="md:col-span-1 h-10 px-3 py-1 md:mb-1 rounded-xl text-gray-300 text-center shadow bg-app outline-none"
+                        className="md:col-span-1 md:h-10 h-14 px-3 py-1 md:mb-1 rounded-xl text-gray-300 text-center shadow bg-app outline-none"
                         type="number"
                         placeholder="Цена"
                         name="price"
@@ -135,8 +152,9 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
     );
 }
 
-const apiToken = 'yFQLEIdPYXKRIIDpyXFz7R0wi9AgzbFV3fYwfcBQT4HGvZdZMcNAav2H3U3v';
-
+/**
+ * Decode PCConfig data object from URL
+ */
 const getPCConfigFromURL: () => PCConfigI = () => {
     const data = {};
 
@@ -145,8 +163,6 @@ const getPCConfigFromURL: () => PCConfigI = () => {
         .split("&")
         .forEach(function (item) {
             const [type, field, value] = decodeURIComponent(item).split(/@|=/);
-
-            console.log(item)
 
             if (!(type in data)) {
                 data[type] = {...defaultPCItemData};
@@ -159,8 +175,10 @@ const getPCConfigFromURL: () => PCConfigI = () => {
 }
 
 const Configurator: React.FC<{}> = ({}) => {
+    // Default config
     const [data, setData] = useState<PCConfigI>(new PCConfig());
 
+    // Fill PCConfig by data from URL
     useEffect(() => {
         setData(new PCConfig(getPCConfigFromURL()))
     }, []);
@@ -186,6 +204,7 @@ const Configurator: React.FC<{}> = ({}) => {
     }, [data]);
 
     const [hasCopied, setHasCopied] = useState(false);
+    const [error, setError] = useState('');
 
     /**
      * Generate link with PCConfig data,
@@ -193,38 +212,39 @@ const Configurator: React.FC<{}> = ({}) => {
      * and copy to clipboard.
      */
     const copyLink = useCallback(async () => {
-            setHasCopied(true);
+        setError('');
 
-            let longURL = new URL((window.location as any).href);
+        let longURL = new URL((window.location as any).href);
 
-            // Save all PCConfig data to link
-            Object.keys(data).forEach(type => {
-                if (!data[type]) return;
+        // Save all PCConfig data to link
+        Object.keys(data).forEach(type => {
+            if (!data[type]) return;
 
-                Object.keys(data[type]).forEach(key => {
-                    if (!data[type][key]) return;
-                    longURL.searchParams.append(
-                        type + '@' + key,
-                        data[type][key]
-                    )
-                })
-            });
+            Object.keys(data[type]).forEach(key => {
+                if (!data[type][key]) return;
+                longURL.searchParams.append(
+                    type + '@' + key,
+                    data[type][key]
+                )
+            })
+        });
 
-            // Use yandex clck.ru for get short link
-            const response = await fetch(
-                `https://clck.ru/--?url=${encodeURIComponent(longURL.href)}`,
-            )
-            const short_link = await response.text();
+        const shortLink = await shortURL(longURL.href);
 
-            navigator.clipboard.writeText(short_link);
-
-            setTimeout(() => setHasCopied(false), 1000)
+        if (shortLink) navigator.clipboard.writeText(shortLink);
+        else {
+            setError("Слишком много данных для создания короткой ссылки.\nПопробуйте сократить некоторые ссылки и убрать кириллицу из названий.\nНо мы всё равно сохранили длинную ссылку в ваш буфер обмена.");
+            navigator.clipboard.writeText(longURL.href);
         }
-        , [data]);
+
+        setHasCopied(true);
+
+        setTimeout(() => setHasCopied(false), 1000)
+    }, [data]);
 
     return (
         <div>
-            <Section className="px-6 py-6">
+            <Section className="md:px-6 py-6">
                 <h1 className="text-3xl font-play">Конфигуратор ПК</h1>
                 <p className="text-gray-400 mt-1.5">Вставьте ссылки на комплектующие в соответствующие поля</p>
 
@@ -254,11 +274,16 @@ const Configurator: React.FC<{}> = ({}) => {
                     <div className="text-3xl font-bold font-sans text-right">Итого: {totalPrice} ₽</div>
 
                 </div>
+
+                {error && <p className="flex justify-between items-center mt-7 border-red-600 whitespace-pre text-red-500">
+                    {error}
+                </p>}
             </Section>
 
             <Section>
                 <h1 className="text-3xl font-play">Есть вопросы по железу?</h1>
-                <p className="text-gray-400 mt-1.5 mb-5">Спросите RX4D лично через FanTalks и получите ответ в течение всего нескольких часов!</p>
+                <p className="text-gray-400 mt-1.5 mb-5">Спросите RX4D лично через FanTalks и получите ответ в течение
+                    всего нескольких часов!</p>
 
                 <a
                     type="button"
