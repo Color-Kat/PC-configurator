@@ -148,14 +148,14 @@ const getPCConfigFromURL: () => PCConfigI = () => {
 
             console.log(item)
 
-            if(!(type in data)) {
+            if (!(type in data)) {
                 data[type] = {...defaultPCItemData};
             }
 
             data[type][field] = value;
         });
 
-   return data;
+    return data;
 }
 
 const Configurator: React.FC<{}> = ({}) => {
@@ -164,8 +164,6 @@ const Configurator: React.FC<{}> = ({}) => {
     useEffect(() => {
         setData(new PCConfig(getPCConfigFromURL()))
     }, []);
-
-    console.log(data)
 
     const changeDataByType = useCallback((type: keyof typeof partTypes, data) => {
         setData(prev => ({
@@ -195,69 +193,81 @@ const Configurator: React.FC<{}> = ({}) => {
      * and copy to clipboard.
      */
     const copyLink = useCallback(async () => {
-        setHasCopied(true);
+            setHasCopied(true);
 
-        let longURL = new URL((window.location as any).href);
+            let longURL = new URL((window.location as any).href);
 
-        // Save all PCConfig data to link
-        Object.keys(data).forEach(type => {
-            if(!data[type]) return;
+            // Save all PCConfig data to link
+            Object.keys(data).forEach(type => {
+                if (!data[type]) return;
 
-            Object.keys(data[type]).forEach(key => {
-                if(!data[type][key]) return;
-                longURL.searchParams.append(
-                    type + '@' + key,
-                    data[type][key]
-                )
-            })
-        });
+                Object.keys(data[type]).forEach(key => {
+                    if (!data[type][key]) return;
+                    longURL.searchParams.append(
+                        type + '@' + key,
+                        data[type][key]
+                    )
+                })
+            });
 
-        // Use yandex clck.ru for get short link
-        const response = await fetch(
-            `https://clck.ru/--?url=${encodeURIComponent(longURL.href)}`,
-        )
-        const short_link = await response.text();
+            // Use yandex clck.ru for get short link
+            const response = await fetch(
+                `https://clck.ru/--?url=${encodeURIComponent(longURL.href)}`,
+            )
+            const short_link = await response.text();
 
-        navigator.clipboard.writeText(short_link);
+            navigator.clipboard.writeText(short_link);
 
-        setTimeout(() => setHasCopied(false), 1000)
-    }
-    , [data]);
+            setTimeout(() => setHasCopied(false), 1000)
+        }
+        , [data]);
 
     return (
-        <Section className="px-6 py-6">
+        <div>
+            <Section className="px-6 py-6">
+                <h1 className="text-3xl font-play">Конфигуратор ПК</h1>
+                <p className="text-gray-400 mt-1.5">Вставьте ссылки на комплектующие в соответствующие поля</p>
 
-            <h1 className="text-3xl font-play">Конфигуратор ПК</h1>
-            <p className="text-gray-400 mt-1.5">Вставьте ссылки на комплектующие в соответствующие поля</p>
+                <div className="space-y-2 mt-7">
+                    <PCItem type="GPU" data={data} changeDataByType={changeDataByType}/>
+                    <PCItem type="CPU" data={data} changeDataByType={changeDataByType}/>
+                    <PCItem type="motherboard" data={data} changeDataByType={changeDataByType}/>
+                    <PCItem type="RAM" data={data} changeDataByType={changeDataByType}/>
+                    <PCItem type="PSU" data={data} changeDataByType={changeDataByType}/>
+                    <PCItem type="storage" data={data} changeDataByType={changeDataByType}/>
+                    <PCItem type="coolingSystem" data={data} changeDataByType={changeDataByType}/>
+                    <PCItem type="PCCase" data={data} changeDataByType={changeDataByType}/>
+                    <PCItem type="fans" data={data} changeDataByType={changeDataByType}/>
+                </div>
 
-            <div className="space-y-2 mt-7">
-                <PCItem type="GPU" data={data} changeDataByType={changeDataByType}/>
-                <PCItem type="CPU" data={data} changeDataByType={changeDataByType}/>
-                <PCItem type="motherboard" data={data} changeDataByType={changeDataByType}/>
-                <PCItem type="RAM" data={data} changeDataByType={changeDataByType}/>
-                <PCItem type="PSU" data={data} changeDataByType={changeDataByType}/>
-                <PCItem type="storage" data={data} changeDataByType={changeDataByType}/>
-                <PCItem type="coolingSystem" data={data} changeDataByType={changeDataByType}/>
-                <PCItem type="PCCase" data={data} changeDataByType={changeDataByType}/>
-                <PCItem type="fans" data={data} changeDataByType={changeDataByType}/>
-            </div>
+                <div className="flex justify-between items-center mt-7 pt-7 border-t border-red-600">
 
-            <div className="flex justify-between items-center mt-7 pt-7 border-t border-red-600">
+                    <button
+                        className="py-2 px-3 rounded-lg font-bold text-xl bg-gradient-to-r hover:from-red-600 from-red-500 to-red-800 text-center"
+                        onClick={copyLink}
+                    >
+                        {
+                            hasCopied ? 'Скопировано' : 'Скопировать ссылку'
+                        }
+                    </button>
 
-                <button
-                    className="py-2 px-3 rounded-lg font-bold text-xl bg-gradient-to-r hover:from-red-600 from-red-500 to-red-800 text-center"
-                    onClick={copyLink}
-                >
-                    {
-                        hasCopied ? 'Скопировано' : 'Скопировать ссылку'
-                    }
-                </button>
+                    <div className="text-3xl font-bold font-sans text-right">Итого: {totalPrice} ₽</div>
 
-                <div className="text-3xl font-bold font-sans text-right">Итого: {totalPrice} ₽</div>
+                </div>
+            </Section>
 
-            </div>
+            <Section>
+                <h1 className="text-3xl font-play">Есть вопросы по железу?</h1>
+                <p className="text-gray-400 mt-1.5 mb-5">Спросите RX4D лично через FanTalks и получите ответ в течение всего нескольких часов!</p>
 
-        </Section>
+                <a
+                    type="button"
+                    href="https://fantalks.io/r/rx4d_stream"
+                    className="uppercase text-lg font-bold font-play tracking-wider text-gray-200 px-5 py-2 rounded-lg transition-colors bg-gradient-to-tl from-blue-400 to-indigo-400 hover:from-blue-500"
+                    target="_blank"
+                >Задать вопрос</a>
+            </Section>
+        </div>
 
     );
 }
