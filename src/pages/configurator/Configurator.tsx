@@ -260,10 +260,10 @@ const Configurator: React.FC<{}> = ({}) => {
                     <PCItem type="fans" data={data} changeDataByType={changeDataByType}/>
                 </div>
 
-                <div className="flex justify-between items-center mt-7 pt-7 border-t border-red-600">
+                <div className="flex justify-between md:flex-row flex-col-reverse gap-5 items-center mt-7 pt-7 border-t border-red-600">
 
                     <button
-                        className="py-2 px-3 rounded-lg font-bold text-xl bg-gradient-to-r hover:from-red-600 from-red-500 to-red-800 text-center"
+                        className="py-2 px-3 rounded-lg font-bold text-xl text-lg bg-gradient-to-r hover:from-red-600 from-red-500 to-red-800 text-center"
                         onClick={copyLink}
                     >
                         {
@@ -275,7 +275,7 @@ const Configurator: React.FC<{}> = ({}) => {
 
                 </div>
 
-                {error && <p className="flex justify-between items-center mt-7 border-red-600 whitespace-pre text-red-500">
+                {error && <p className="flex justify-between items-center mt-7 border-red-600 whitespace-pre-wrap text-red-500">
                     {error}
                 </p>}
             </Section>
