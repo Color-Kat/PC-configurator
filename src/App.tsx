@@ -1,6 +1,7 @@
 import {Layout} from "./UI/layout/Layout";
 
 import {
+    BrowserRouter,
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
@@ -9,7 +10,7 @@ import Configurator from "@pages/configurator/Configurator";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/PC-configurator",
         element: <Configurator />,
     },
 ]);
@@ -18,7 +19,8 @@ function App() {
 
   return (
       <Layout>
-          <RouterProvider router={router} />
+          {/*<BrowserRouter router={router} basename="/PC-configurator" />*/}
+          <Configurator />
       </Layout>
   );
 }

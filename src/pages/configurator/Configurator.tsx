@@ -1,7 +1,7 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Section} from "@UI/sections/Section";
 import {partTypes, PCItemData} from "./configuratorTypes";
-import {PCConfig} from "./PCConfig";
+import {defaultPCItemData, PCConfig, PCConfigI} from "./PCConfig";
 
 
 interface PCItemInterface {
@@ -45,10 +45,19 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
         });
     }
 
+    const followLink = useCallback(() => {
+        window.open(data[type].link, '_blank').focus();
+    }, [data]);
+
     return (
         <div className="w-full md:px-3 px-1.5 py-4 grid md:grid-cols-5 gap-4">
-            <div className="col-span-1 flex justify-center items-center">
-                <h3 className="text-gray-400 font-roboto font-medium text-xl">{partTypes[type].title}</h3>
+            <div className="col-span-1 flex justify-center items-center cursor-pointer">
+                <h3
+                    className="text-gray-400 hover:text-gray-300 font-roboto font-medium text-xl"
+                    onClick={followLink}
+                >
+                    {partTypes[type].title}
+                </h3>
             </div>
 
             <div className="flex md:flex-col flex-col-reverse md:col-span-3 gap-2 md:gap-0 items-center">
@@ -128,8 +137,35 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
 
 const apiToken = 'yFQLEIdPYXKRIIDpyXFz7R0wi9AgzbFV3fYwfcBQT4HGvZdZMcNAav2H3U3v';
 
+const getPCConfigFromURL: () => PCConfigI = () => {
+    const data = {};
+
+    location.search
+        .slice(1)
+        .split("&")
+        .forEach(function (item) {
+            const [type, field, value] = decodeURIComponent(item).split(/@|=/);
+
+            console.log(item)
+
+            if(!(type in data)) {
+                data[type] = {...defaultPCItemData};
+            }
+
+            data[type][field] = value;
+        });
+
+   return data;
+}
+
 const Configurator: React.FC<{}> = ({}) => {
-    const [data, setData] = useState(new PCConfig());
+    const [data, setData] = useState<PCConfigI>(new PCConfig());
+
+    useEffect(() => {
+        setData(new PCConfig(getPCConfigFromURL()))
+    }, []);
+
+    console.log(data)
 
     const changeDataByType = useCallback((type: keyof typeof partTypes, data) => {
         setData(prev => ({
@@ -170,7 +206,7 @@ const Configurator: React.FC<{}> = ({}) => {
             Object.keys(data[type]).forEach(key => {
                 if(!data[type][key]) return;
                 longURL.searchParams.append(
-                    type + '_' + key,
+                    type + '@' + key,
                     data[type][key]
                 )
             })
@@ -202,7 +238,7 @@ const Configurator: React.FC<{}> = ({}) => {
                 <PCItem type="PSU" data={data} changeDataByType={changeDataByType}/>
                 <PCItem type="storage" data={data} changeDataByType={changeDataByType}/>
                 <PCItem type="coolingSystem" data={data} changeDataByType={changeDataByType}/>
-                <PCItem type="PC_case" data={data} changeDataByType={changeDataByType}/>
+                <PCItem type="PCCase" data={data} changeDataByType={changeDataByType}/>
                 <PCItem type="fans" data={data} changeDataByType={changeDataByType}/>
             </div>
 

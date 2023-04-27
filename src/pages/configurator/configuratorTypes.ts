@@ -27,7 +27,7 @@ export const partTypes = {
         title: 'Охлаждение ЦП',
         image: ''
     },
-    PC_case: {
+    PCCase: {
         title: 'Корпус',
         image: ''
     },

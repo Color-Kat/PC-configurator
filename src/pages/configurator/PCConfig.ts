@@ -1,13 +1,13 @@
 import {partTypes, PCItemData} from "./configuratorTypes";
 
-const defaultPCItemData: PCItemData = {
+export const defaultPCItemData: PCItemData = {
     title: '',
     link: '',
     quantity: 1,
     price: 0
 }
 
-interface PCConfigI {
+export interface PCConfigI {
     GPU?: PCItemData;
     CPU?: PCItemData;
     motherboard?: PCItemData;
@@ -15,7 +15,7 @@ interface PCConfigI {
     PSU?: PCItemData;
     storage?: PCItemData;
     coolingSystem?: PCItemData;
-    PC_case?: PCItemData;
+    PCCase?: PCItemData;
     fans?: PCItemData;
 }
 
@@ -28,7 +28,7 @@ export class PCConfig implements PCConfigI{
     public PSU = defaultPCItemData;
     public storage = defaultPCItemData;
     public coolingSystem = defaultPCItemData;
-    public PC_case = defaultPCItemData;
+    public PCCase = defaultPCItemData;
     public fans = defaultPCItemData;
 
     constructor(
