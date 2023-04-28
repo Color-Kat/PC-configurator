@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
 
     return (
         <footer className="flex justify-center bg-app-dark shadow-xl pb-5 pt-6 font-play">
-            <div className="container px-5 flex-row md:flex-row flex justify-between gap-5">
+            <div className="container px-5 flex-col md:flex-row flex justify-between gap-5">
 
                 <div className="text-gray-400 flex-1">
 
@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
 
                 </div>
 
-                <div className=" text-gray-500 text-sm text-center">
+                <div className="text-gray-500 text-sm text-center">
                     <h3>
                         Made by <a href="https://vk.com/color_kat" target="_blank" className="underline">@ColorKat</a>
                     </h3>

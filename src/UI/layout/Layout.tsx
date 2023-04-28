@@ -14,7 +14,7 @@ export const Layout: React.FC<{ children: React.ReactElement }> = memo(({childre
 
 
             <Main>
-                <div className="relative flex md:flex-row flex-col-reverse">
+                <div className="relative flex lg:flex-row flex-col-reverse">
 
                     <Aside />
 
