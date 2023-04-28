@@ -70,7 +70,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
         <div className="w-full md:px-3 sm:px-1.5 py-4 grid md:grid-cols-5 gap-4">
             <div className="col-span-1 flex justify-center items-center cursor-pointer">
                 <h3
-                    className="text-gray-400 hover:text-gray-300 font-roboto font-medium text-xl"
+                    className="text-gray-400 hover:text-gray-300 font-roboto font-medium text-xl text-center"
                     onClick={followLink}
                 >
                     {partTypes[type].title}
@@ -280,7 +280,7 @@ const Configurator: React.FC<{}> = ({}) => {
                 </p>}
             </Section>
 
-            <Section>
+            <Section className="md:px-6 md:py-6">
                 <h1 className="text-3xl font-play">Есть вопросы по железу?</h1>
                 <p className="text-gray-400 mt-1.5 mb-5">Спросите RX4D лично через FanTalks и получите ответ в течение
                     всего нескольких часов!</p>
