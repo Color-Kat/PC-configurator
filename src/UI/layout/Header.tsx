@@ -2,7 +2,7 @@ import {memo} from "react";
 
 export const Header = memo(() => {
     const goToHomePage = () => {
-        window.location = window.location.href.split('?')[0];
+        window.location = (window as any).location.href.split('?')[0];
     }
 
     return (
