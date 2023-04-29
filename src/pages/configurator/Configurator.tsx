@@ -246,7 +246,9 @@ const Configurator: React.FC<{}> = ({}) => {
         <div>
             <Section className="md:px-6 py-6">
                 <h1 className="text-3xl font-play">Конфигуратор ПК</h1>
-                <p className="text-gray-400 mt-1.5">Вставьте ссылки на комплектующие в соответствующие поля</p>
+                <p className="text-gray-400 mt-1.5">
+                    Вставьте ссылки на комплектующие в соответствующие поля и скопируйте ссылку, чтобы поделиться вашей сборкой.
+                </p>
 
                 <div className="space-y-2 mt-7">
                     <PCItem type="GPU" data={data} changeDataByType={changeDataByType}/>

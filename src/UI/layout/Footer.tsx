@@ -17,6 +17,17 @@ const Footer: React.FC = () => {
 
                 <div className="text-gray-500 text-sm text-center">
                     <h3>
+                        <i className="fa fa-youtube-play  mr-1"></i>
+                        <a href="https://www.youtube.com/RX4D_official" target="_blank" className="underline">RX4D</a>
+                    </h3>
+                    <h4>
+                        <i className="fa fa-vk mr-1"></i>
+                        <a href="https://vk.com/rx4dofficial" target="_blank" className="underline">RX4D VK</a>
+                    </h4>
+                </div>
+
+                <div className="text-gray-500 text-sm text-center">
+                    <h3>
                         Made by <a href="https://vk.com/color_kat" target="_blank" className="underline">@ColorKat</a>
                     </h3>
                     <h4>
