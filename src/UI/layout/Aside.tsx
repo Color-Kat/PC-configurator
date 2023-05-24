@@ -9,7 +9,7 @@ export const Aside = memo(() => {
 
     return (
         <aside
-            className="lg:w-[300px] lg:h-[370px] mr-4 overflow-hidden sticky bg-app-dark rounded-xl shadow-lg p-4 mr-2 mb-4"
+            className="lg:w-[300px] lg:h-[370px] mr-4 overflow-hidden sticky bg-app-dark bg-opacity-75 rounded-xl black-shadow p-4 mr-2 mb-4"
             // style={{width: '300px', height: '370px'}}
         >
             <div className="h-full flex flex-col justify-between">

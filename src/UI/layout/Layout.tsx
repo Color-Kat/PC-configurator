@@ -4,10 +4,12 @@ import Main from "./Main";
 import Footer from "./Footer";
 import {Aside} from "./Aside";
 
+import videoBg from "@assets/videos/bg.mp4";
+
 export const Layout: React.FC<{ children: React.ReactElement }> = memo(({children}) => {
     return (
         <div
-            className="scroll-container flex flex-col h-screen overflow-auto overflow-x-hidden app-bg"
+            className="scroll-container flex flex-col h-screen no-scrollbr overflow-auto overflow-x-hidden app-bg"
         >
 
             <Header/>
@@ -17,11 +19,10 @@ export const Layout: React.FC<{ children: React.ReactElement }> = memo(({childre
                 muted
                 loop
                 id="video-bg"
-                className="absolute w-full h-full object-cover opacity-20 z-0"
+                className="absolute w-full h-full object-cover opacity-50 z-0 pointer-events-none"
             >
-                <source src="https://html5css.ru/howto/rain.mp4" type="video/mp4"/>
+                <source src={videoBg} type="video/mp4"/>
             </video>
-
 
             <Main>
                 <div className="relative flex lg:flex-row flex-col-reverse">

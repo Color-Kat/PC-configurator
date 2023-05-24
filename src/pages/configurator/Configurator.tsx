@@ -80,7 +80,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
             <div className="flex md:flex-col flex-col-reverse md:col-span-3 gap-2 md:gap-0 items-center">
                 <div className="md:grid md:grid-cols-3 gap-2 w-full flex flex-col-reverse">
                     <input
-                        className="md:col-span-2 md:h-10 h-14 px-3 md:py-1 py-2.5 md:mb-1 rounded-xl text-gray-300 flex flex-1 shadow bg-app outline-none md:text-left text-center"
+                        className="md:col-span-2 md:h-10 h-14 px-3 md:py-1 py-2.5 md:mb-1 rounded-xl text-gray-300 flex flex-1 shadow bg-app bg-opacity-75 outline-none md:text-left text-center"
                         type="text"
                         placeholder="Название товара"
                         autoComplete="off"
@@ -90,7 +90,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                     />
 
                     <input
-                        className="md:col-span-1 md:h-10 h-14 px-3 py-1 md:mb-1 rounded-xl text-gray-300 text-center shadow bg-app outline-none"
+                        className="md:col-span-1 md:h-10 h-14 px-3 py-1 md:mb-1 rounded-xl text-gray-300 text-center shadow bg-app bg-opacity-75 outline-none"
                         type="number"
                         placeholder="Цена"
                         name="price"
@@ -103,7 +103,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                 <div className="grid md:grid-cols-3 gap-2 w-full items-center">
                     <input
                         type="text"
-                        className="md:col-span-2 h-14 px-3 rounded-xl flex shadow bg-app outline-none flex-1 md:text-left text-center"
+                        className="md:col-span-2 h-14 px-3 rounded-xl flex shadow bg-app bg-opacity-75 outline-none flex-1 md:text-left text-center"
                         placeholder="Ссылка на товар"
                         autoComplete="off"
                         value={data[type].link}
@@ -111,7 +111,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                         onChange={changeFormHandler}
                     />
 
-                    <div className="md:col-span-1 h-14 px-3 py-1 rounded-xl flex shadow bg-app items-center flex">
+                    <div className="md:col-span-1 h-14 px-3 py-1 rounded-xl flex shadow bg-app bg-opacity-75 items-center flex">
 
                         <button
                             className="font-play font-bold text-3xl ml-2 mr-4 text-gray-400 hover:text-gray-300"
@@ -142,7 +142,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
             </div>
 
             <div
-                className="md:col-span-1 flex justify-end items-end px-3 py-2 rounded-xl flex shadow bg-gray-800 font-bold text-3xl text-gray-400 font-play"
+                className="md:col-span-1 flex justify-end items-end px-3 py-2 rounded-xl flex shadow bg-gray-800 bg-opacity-75 font-bold text-3xl text-gray-400 font-play"
             >
                 {data[type].quantity * data[type].price} ₽
             </div>

@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./scss/fonts";
+@import "./scss/scrollbar";
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -17,3 +18,7 @@ input[type=number] {
 }
 
 button:focus { outline:0 !important; }
+
+.black-shadow {
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.3), -15px -15px 30px rgba(0, 0, 0, 0.3) !important;
+}
