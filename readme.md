@@ -1,4 +1,4 @@
-### PC-configurator
+# PC-configurator
 
 This's a simple tool for creating PC builds.
 You can simply paste links to your PC parts into this configurator, 

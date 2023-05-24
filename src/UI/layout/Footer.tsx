@@ -4,7 +4,7 @@ const Footer: React.FC = () => {
 
 
     return (
-        <footer className="flex justify-center bg-app-dark shadow-xl pb-5 pt-6 font-play">
+        <footer className="flex justify-center bg-app-dark shadow-xl pb-5 pt-6 font-play z-10">
             <div className="container px-5 flex-col md:flex-row flex justify-between gap-5">
 
                 <div className="text-gray-400 flex-1">

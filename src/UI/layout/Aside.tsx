@@ -15,7 +15,7 @@ export const Aside = memo(() => {
             <div className="h-full flex flex-col justify-between">
                 <div className="cursor-pointer flex lg:flex-col sm:flex-row flex-col gap-5" onClick={goToColorbit}>
                     <div>
-                        <h2 className="text-xl font-bold text-center text-gray-300 mb-2">Спонсор проекта</h2>
+                        <h2 className="text-xl font-bold text-center text-gray-300 mb-2">Наша игра про майнинг</h2>
 
                         <p className="text-gray-400 ">
                             {/*Симулятор майнинга <b>Colorbit</b> — финансовая стратегия компьютерной тематики*/}

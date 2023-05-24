@@ -1,4 +1,4 @@
-import {memo} from "react";
+import React, {memo} from "react";
 import {Header} from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -11,6 +11,16 @@ export const Layout: React.FC<{ children: React.ReactElement }> = memo(({childre
         >
 
             <Header/>
+
+            <video
+                autoPlay
+                muted
+                loop
+                id="video-bg"
+                className="absolute w-full h-full object-cover opacity-20 z-0"
+            >
+                <source src="https://html5css.ru/howto/rain.mp4" type="video/mp4"/>
+            </video>
 
 
             <Main>
