@@ -9,15 +9,15 @@ export const Aside = memo(() => {
 
     return (
         <aside
-            className="lg:w-[300px] lg:h-[370px] mr-4 overflow-hidden sticky bg-app-dark bg-opacity-75 rounded-xl black-shadow p-4 mr-2 mb-4"
+            className="lg:w-[300px] lg:h-[370px] mr-4 overflow-hidden sticky bg-white bg-opacity-75 rounded-xl shadow-lg p-4 mr-2 mb-4"
             // style={{width: '300px', height: '370px'}}
         >
             <div className="h-full flex flex-col justify-between">
                 <div className="cursor-pointer flex lg:flex-col sm:flex-row flex-col gap-5" onClick={goToColorbit}>
                     <div>
-                        <h2 className="text-xl font-bold text-center text-gray-300 mb-2">Наша игра про майнинг</h2>
+                        <h2 className="text-xl font-bold text-center text-gray-600 mb-2">Наша игра про майнинг</h2>
 
-                        <p className="text-gray-400 ">
+                        <p className="text-gray-700 ">
                             {/*Симулятор майнинга <b>Colorbit</b> — финансовая стратегия компьютерной тематики*/}
                             Построй свою криптоимперию в сюжетной игре про ПК — <b>Colorbit</b>!
                         </p>
