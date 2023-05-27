@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es5",
     "lib": [
       "DOM",
       "DOM.Iterable",
@@ -17,34 +17,36 @@
     "noEmit": true,
     "jsx": "react-jsx",
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@modules/*": [
+        "./src/modules/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@UI/*": [
+        "./src/UI/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ]
+    }
   },
   "include": [
     "src"
-  ],
-//  "baseUrl": ".",
-//  "paths": {
-//    "@/*": [
-//      "./src/*"
-//    ],
-//    "@assets/*": [
-//      "./src/assets/*"
-//    ],
-//    "@components/*": [
-//      "./src/components/*"
-//    ],
-//    "@hooks/*": [
-//      "./src/hooks/*"
-//    ],
-//    "@pages/*": [
-//      "./src/pages/*"
-//    ],
-//    "@UI/*": [
-//      "./src/UI/*"
-//    ]
-//  }
+  ]
 }

@@ -1,13 +1,13 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Section} from "@UI/sections/Section";
 import {partTypes, PCItemData} from "./configuratorTypes";
 import {defaultPCItemData, PCConfig, PCConfigI} from "./PCConfig";
-import {shortURL} from "../../utils/shortURL";
+import {shortURL} from "@/utils/shortURL";
 
 
 interface PCItemInterface {
     type: keyof typeof partTypes;
-    data: PCItemData[];
+    data: PCConfigI;
     changeDataByType: (type: keyof typeof partTypes, data: any) => void
 }
 
@@ -70,7 +70,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
         <div className="w-full md:px-3 sm:px-1.5 py-4 grid md:grid-cols-5 gap-4">
             <div className="col-span-1 flex justify-center items-center cursor-pointer">
                 <h3
-                    className="text-gray-400 hover:text-gray-300 font-roboto font-medium text-xl text-center"
+                    className="text-gray-800 hover:text-gray-600 font-roboto font-medium text-xl text-center"
                     onClick={followLink}
                 >
                     {partTypes[type].title}
@@ -80,7 +80,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
             <div className="flex md:flex-col flex-col-reverse md:col-span-3 gap-2 md:gap-0 items-center">
                 <div className="md:grid md:grid-cols-3 gap-2 w-full flex flex-col-reverse">
                     <input
-                        className="md:col-span-2 md:h-10 h-14 px-3 md:py-1 py-2.5 md:mb-1 rounded-xl text-gray-300 flex flex-1 shadow bg-app bg-opacity-75 outline-none md:text-left text-center"
+                        className="md:col-span-2 md:h-10 h-14 px-3 md:py-1 py-2.5 md:mb-1 rounded-xl text-app-dark flex flex-1 shadow bg-app bg-opacity-75 outline-none md:text-left text-center placeholder-gray-600"
                         type="text"
                         placeholder="Название товара"
                         autoComplete="off"
@@ -90,7 +90,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                     />
 
                     <input
-                        className="md:col-span-1 md:h-10 h-14 px-3 py-1 md:mb-1 rounded-xl text-gray-300 text-center shadow bg-app bg-opacity-75 outline-none"
+                        className="md:col-span-1 md:h-10 h-14 px-3 py-1 md:mb-1 rounded-xl text-app-dark text-center shadow bg-app bg-opacity-75 outline-none placeholder-gray-600"
                         type="number"
                         placeholder="Цена"
                         name="price"
@@ -103,7 +103,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                 <div className="grid md:grid-cols-3 gap-2 w-full items-center">
                     <input
                         type="text"
-                        className="md:col-span-2 h-14 px-3 rounded-xl flex shadow bg-app bg-opacity-75 outline-none flex-1 md:text-left text-center"
+                        className="md:col-span-2 h-14 px-3 rounded-xl flex shadow bg-app bg-opacity-75 outline-none flex-1 md:text-left text-center placeholder-gray-600"
                         placeholder="Ссылка на товар"
                         autoComplete="off"
                         value={data[type].link}
@@ -111,10 +111,10 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                         onChange={changeFormHandler}
                     />
 
-                    <div className="md:col-span-1 h-14 px-3 py-1 rounded-xl flex shadow bg-app bg-opacity-75 items-center flex">
+                    <div className="md:col-span-1 h-14 px-3 py-1 rounded-xl flex shadow bg-app bg-opacity-75 items-center">
 
                         <button
-                            className="font-play font-bold text-3xl ml-2 mr-4 text-gray-400 hover:text-gray-300"
+                            className="font-play font-bold text-3xl ml-2 mr-4 text-app-dark hover:text-gray-400"
                             onClick={decreaseQuantity}
                         >
                             -
@@ -122,7 +122,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
 
                         <input
                             type="number"
-                            className="text-center bg-app outline-none shadow-inner flex-1 min-w-0"
+                            className="text-center bg-transparent outline-none flex-1 min-w-0 placeholder-gray-500"
                             style={{maxWidth: '50px', margin: 'auto'}}
                             placeholder="Кол-во"
                             autoComplete="off" min="0"
@@ -132,7 +132,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                         />
 
                         <button
-                            className="font-play font-bold text-3xl mr-2 ml-4 text-gray-400 hover:text-gray-300"
+                            className="font-play font-bold text-3xl mr-2 ml-4 text-app-dark hover:text-gray-500"
                             onClick={increaseQuantity}
                         >
                             +
@@ -142,7 +142,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
             </div>
 
             <div
-                className="md:col-span-1 flex justify-end items-end px-3 py-2 rounded-xl flex shadow bg-gray-800 bg-opacity-75 font-bold text-3xl text-gray-400 font-play"
+                className="md:col-span-1 flex justify-end items-end px-3 py-2 rounded-xl shadow bg-app-dark text-app-t bg-opacity- font-bold text-3xl font-play"
             >
                 {data[type].quantity * data[type].price} ₽
             </div>
@@ -196,9 +196,9 @@ const Configurator: React.FC<{}> = ({}) => {
     /**
      * Calculate total PC configuration price
      */
-    const totalPrice = useMemo(() => {
-        return Object.values(data as any).reduce(
-            (prev, PCItemData) => (prev + (PCItemData.quantity * PCItemData.price)),
+    const totalPrice: number = useMemo(() => {
+        return +Object.values(data as any).reduce(
+            (prev: number, PCItemData: PCItemData) => (prev + (PCItemData.quantity * PCItemData.price)),
             0
         );
     }, [data]);
@@ -245,8 +245,8 @@ const Configurator: React.FC<{}> = ({}) => {
     return (
         <div>
             <Section className="md:px-6 py-6">
-                <h1 className="text-3xl font-play">Конфигуратор ПК</h1>
-                <p className="text-gray-400 mt-1.5">
+                <h1 className="text-3xl font-bowler">Собрать ПК</h1>
+                <p className="text-app-dark mt-1.5">
                     Вставьте ссылки на комплектующие в соответствующие поля и скопируйте ссылку, чтобы поделиться вашей сборкой.
                 </p>
 
@@ -262,10 +262,10 @@ const Configurator: React.FC<{}> = ({}) => {
                     <PCItem type="fans" data={data} changeDataByType={changeDataByType}/>
                 </div>
 
-                <div className="flex justify-between md:flex-row flex-col-reverse gap-5 items-center mt-7 pt-7 border-t border-red-600">
+                <div className="flex justify-between md:flex-row flex-col-reverse gap-5 items-center mt-7 pt-7 border-t border-app-dark">
 
                     <button
-                        className="py-2 px-3 rounded-lg font-bold text-xl text-lg bg-gradient-to-r hover:from-red-600 from-red-500 to-red-800 text-center"
+                        className="py-2 px-3 rounded-lg font-bold text-xl text-app bg-gradient-to-r hover:to-gray-800 from-app-dark to-gray-600 text-center"
                         onClick={copyLink}
                     >
                         {
@@ -283,14 +283,14 @@ const Configurator: React.FC<{}> = ({}) => {
             </Section>
 
             <Section className="md:px-6 md:py-6">
-                <h1 className="text-3xl font-play">Есть вопросы по железу?</h1>
-                <p className="text-gray-400 mt-1.5 mb-5">Спросите RX4D лично через FanTalks и получите ответ в течение
+                <h1 className="text-3xl font-play text-app-dark">Есть вопросы по железу?</h1>
+                <p className="text-gray-700 mt-1.5 mb-5">Спросите RX4D лично через FanTalks и получите ответ в течение
                     всего нескольких часов!</p>
 
                 <a
                     type="button"
                     href="https://fantalks.io/r/rx4d_stream"
-                    className="uppercase text-lg font-bold font-play tracking-wider text-gray-200 px-5 py-2 rounded-lg transition-colors bg-gradient-to-tl from-blue-400 to-indigo-400 hover:from-blue-500"
+                    className="uppercase text-lg font-bold font-play tracking-wider text-gray-100 px-5 py-2 rounded-lg transition-colors bg-gradient-to-tl from-blue-400 to-indigo-400 hover:from-blue-500"
                     target="_blank"
                 >Задать вопрос</a>
             </Section>

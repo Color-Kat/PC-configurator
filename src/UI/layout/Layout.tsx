@@ -4,12 +4,12 @@ import Main from "./Main";
 import Footer from "./Footer";
 import {Aside} from "./Aside";
 
-import videoBg from "@assets/videos/bg.mp4";
+// import videoBg from "@assets/videos/bg.mp4";
 
 export const Layout: React.FC<{ children: React.ReactElement }> = memo(({children}) => {
     return (
         <div
-            className="scroll-container flex flex-col h-screen overflow-auto overflow-x-hidden bg-gray-200"
+            className="scroll-container flex flex-col h-screen overflow-auto overflow-x-hidden bg-app"
         >
 
             <Header/>

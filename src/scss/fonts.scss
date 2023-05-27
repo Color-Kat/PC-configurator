@@ -16,6 +16,11 @@
     font-family: 'Ubuntu Mono', monospace;
 }
 
-.font-dns {
-    font-family: PT Sans,Helvetica,Arial,sans-serif, monospace;
+@font-face {
+    font-family: 'Bowler';
+    src: url('@assets/fonts/bowler.ttf') format('truetype');
+}
+
+.font-bowler {
+    font-family: 'Bowler', 'sans-serif';
 }
