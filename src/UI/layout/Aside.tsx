@@ -30,7 +30,9 @@ export const Aside = memo(() => {
                     <h3>
                         Made by <a href="https://vk.com/color_kat" target="_blank" className="underline">@ColorKat</a>
                     </h3>
-                    <h4>
+                    <h4
+                        title="На этой странице есть секретное слово, которое даст вам бонус в игре Colorbit. Найдите его!"
+                    >
                         powered by <a href="https://colorbit.ru" target="_blank" className="underline">Colorbit.ru</a>
                     </h4>
                 </div>

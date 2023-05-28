@@ -72,6 +72,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                 <h3
                     className="text-gray-800 hover:text-gray-600 font-roboto font-medium text-xl text-center"
                     onClick={followLink}
+                    title={data[type].link ? "Посмотреть в магазине" : ""}
                 >
                     {partTypes[type].title}
                 </h3>

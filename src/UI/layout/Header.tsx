@@ -26,6 +26,7 @@ export const Header = memo(() => {
                     <h2
                         className="font-bowler text-lg uppercase -mb-1 flex-1 cursor-pointer"
                         onClick={goToHomePage}
+                        title="Зато не пешком;)"
                     >
                         Компьютерный ослик
                     </h2>
