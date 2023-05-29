@@ -3,7 +3,7 @@ export const shortURL = async (link: string): Promise<string|false> => {
     return fetch(
         `https://clck.ru/--?url=${encodeURIComponent(link)}`,
     ).then(response => {
-        if(!response.ok) return false;
+        if(!response.ok) return '';
 
         return response.text();
     })

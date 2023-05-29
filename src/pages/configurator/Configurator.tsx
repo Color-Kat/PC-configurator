@@ -88,6 +88,12 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                         name="title"
                         value={data[type].title}
                         onChange={changeFormHandler}
+                        title={
+                            type == "CPU" &&
+                            /intel|интел|штеуд/i.test(data[type].title)
+                            ? "Лучше купи Ryzen"
+                            : ""
+                        }
                     />
 
                     <input
