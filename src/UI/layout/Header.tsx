@@ -126,7 +126,7 @@ export const Header = memo(() => {
                         target="_blank"
                     >YouTube канал</a>
 
-                    <div className="text-gray-600 mt-auto mb-36 text-sm text-center">
+                    <div className="relative text-gray-600 mt-auto pb-36 text-sm text-center">
                         <h3>
                             Made by <a href="https://vk.com/color_kat" target="_blank" className="underline">@ColorKat</a>
                         </h3>

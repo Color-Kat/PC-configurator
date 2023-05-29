@@ -1,14 +1,15 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {Section} from "@UI/sections/Section";
-import {partTypes, PCItemData} from "./configuratorTypes";
-import {defaultPCItemData, PCConfig, PCConfigI} from "./PCConfig";
-import {shortURL} from "@/utils/shortURL";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Section } from "@UI/sections/Section";
+import { partTypes, PCItemData } from "./configuratorTypes";
+import { defaultPCItemData, PCConfig, PCConfigI } from "./PCConfig";
+import { shortURL } from "@/utils/shortURL";
+import { copyToClipboard } from "@/utils/copyToClipboard.ts";
 
 
 interface PCItemInterface {
     type: keyof typeof partTypes;
     data: PCConfigI;
-    changeDataByType: (type: keyof typeof partTypes, data: any) => void
+    changeDataByType: (type: keyof typeof partTypes, data: any) => void;
 }
 
 const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
@@ -36,7 +37,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                 [key]: await shortURL(value)
             });
         }
-    }
+    };
 
     /**
      * Increase PC part quantity
@@ -45,7 +46,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
         changeDataByType(type, {
             quantity: +data[type].quantity + 1
         });
-    }
+    };
 
     /**
      * Decrease PC part quantity
@@ -56,7 +57,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
         changeDataByType(type, {
             quantity: +data[type].quantity - 1,
         });
-    }
+    };
 
     /**
      * Open page by link of this PC part
@@ -91,8 +92,8 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                         title={
                             type == "CPU" &&
                             /intel|интел|штеуд/i.test(data[type].title)
-                            ? "Лучше купи Ryzen"
-                            : ""
+                                ? "Лучше купи Ryzen"
+                                : ""
                         }
                     />
 
@@ -118,7 +119,8 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                         onChange={changeFormHandler}
                     />
 
-                    <div className="md:col-span-1 h-14 px-3 py-1 rounded-xl flex shadow bg-app bg-opacity-75 items-center">
+                    <div
+                        className="md:col-span-1 h-14 px-3 py-1 rounded-xl flex shadow bg-app bg-opacity-75 items-center">
 
                         <button
                             className="font-play font-bold text-3xl ml-2 mr-4 text-app-dark hover:text-gray-400"
@@ -157,7 +159,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
         </div>
 
     );
-}
+};
 
 /**
  * Decode PCConfig data object from URL
@@ -179,7 +181,7 @@ const getPCConfigFromURL: () => PCConfigI = () => {
         });
 
     return data;
-}
+};
 
 const Configurator: React.FC<{}> = ({}) => {
     // Default config
@@ -187,7 +189,7 @@ const Configurator: React.FC<{}> = ({}) => {
 
     // Fill PCConfig by data from URL
     useEffect(() => {
-        setData(new PCConfig(getPCConfigFromURL()))
+        setData(new PCConfig(getPCConfigFromURL()));
     }, []);
 
     const changeDataByType = useCallback((type: keyof typeof partTypes, data) => {
@@ -232,21 +234,24 @@ const Configurator: React.FC<{}> = ({}) => {
                 longURL.searchParams.append(
                     type + '@' + key,
                     data[type][key]
-                )
-            })
+                );
+            });
         });
 
         const shortLink = await shortURL(longURL.href);
 
-        if (shortLink) navigator.clipboard.writeText(shortLink);
+        if (shortLink)
+            copyToClipboard(shortLink);
+        // navigator.clipboard.writeText(shortLink);
         else {
             setError("Слишком много данных для создания короткой ссылки.\nПопробуйте сократить некоторые ссылки и убрать кириллицу из названий.\nНо мы всё равно сохранили длинную ссылку в ваш буфер обмена.");
-            navigator.clipboard.writeText(longURL.href);
+            // navigator.clipboard.writeText(longURL.href);
+            copyToClipboard(longURL.href);
         }
 
         setHasCopied(true);
 
-        setTimeout(() => setHasCopied(false), 1000)
+        setTimeout(() => setHasCopied(false), 1000);
     }, [data]);
 
     return (
@@ -254,7 +259,8 @@ const Configurator: React.FC<{}> = ({}) => {
             <Section className="md:px-6 py-6">
                 <h1 className="text-3xl font-bowler">Собрать ПК</h1>
                 <p className="text-app-dark mt-1.5">
-                    Вставьте ссылки на комплектующие в соответствующие поля и скопируйте ссылку, чтобы поделиться вашей сборкой.
+                    Вставьте ссылки на комплектующие в соответствующие поля и скопируйте ссылку, чтобы поделиться вашей
+                    сборкой.
                 </p>
 
                 <div className="space-y-2 mt-7">
@@ -269,7 +275,8 @@ const Configurator: React.FC<{}> = ({}) => {
                     <PCItem type="fans" data={data} changeDataByType={changeDataByType}/>
                 </div>
 
-                <div className="flex justify-between md:flex-row flex-col-reverse gap-5 items-center mt-7 pt-7 border-t border-app-dark">
+                <div
+                    className="flex justify-between md:flex-row flex-col-reverse gap-5 items-center mt-7 pt-7 border-t border-app-dark">
 
                     <button
                         className="py-2 px-3 rounded-lg font-bold text-xl text-app bg-gradient-to-r hover:to-gray-800 from-app-dark to-gray-600 text-center"
@@ -284,9 +291,10 @@ const Configurator: React.FC<{}> = ({}) => {
 
                 </div>
 
-                {error && <p className="flex justify-between items-center mt-7 border-red-600 whitespace-pre-wrap text-red-500">
-                    {error}
-                </p>}
+                {error &&
+                    <p className="flex justify-between items-center mt-7 border-red-600 whitespace-pre-wrap text-red-500">
+                        {error}
+                    </p>}
             </Section>
 
             <Section className="md:px-6 md:py-6">
@@ -304,6 +312,6 @@ const Configurator: React.FC<{}> = ({}) => {
         </div>
 
     );
-}
+};
 
 export default React.memo(Configurator);

@@ -9,7 +9,7 @@ export const Aside = memo(() => {
 
     return (
         <aside
-            className="lg:w-[300px] lg:h-[370px] mr-4 overflow-hidden sticky bg-white bg-opacity-75 rounded-xl shadow-lg p-4 mb-4"
+            className="lg:w-[300px] lg:h-[370px] lg:mr-4 overflow-hidden sticky bg-white bg-opacity-75 rounded-xl shadow-lg p-4 mb-4"
         >
             <div className="h-full flex flex-col justify-between">
                 <div className="cursor-pointer flex lg:flex-col sm:flex-row flex-col gap-5" onClick={goToColorbit}>
