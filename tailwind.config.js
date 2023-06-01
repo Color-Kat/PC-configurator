@@ -1,21 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 
 module.exports = {
-    content: [
+    content  : [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
     important: true,
-    purge  : [
+    purge    : [
         "./src/**/*.ts",
         "./src/**/*.js",
         "./src/**/*.jsx",
         "./src/**/*.tsx",
         "./index.html",
     ],
-    theme  :
+    theme    :
         {
             extend: {
                 colors: {
@@ -26,11 +26,11 @@ module.exports = {
                         '#333333',
                     'app-dark-t':
                         '#2c2c2c',
-                    'app-t' :
+                    'app-t'     :
                         '#d6d6d6',
                 },
-                width: {'[300px]' : '300px'},
-                height: {'[370px]' : '370px'},
+                width : { '[300px]': '300px' },
+                height: { '[370px]': '370px' },
             }
             ,
         }

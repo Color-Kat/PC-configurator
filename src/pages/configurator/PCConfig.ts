@@ -1,4 +1,4 @@
-import {partTypes, PCItemData} from "./configuratorTypes";
+import {PCItemData} from "./configuratorTypes";
 
 export const defaultPCItemData: PCItemData = {
     title: '',

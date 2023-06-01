@@ -183,7 +183,7 @@ const getPCConfigFromURL: () => PCConfigI = () => {
     return data;
 };
 
-const Configurator: React.FC<{}> = ({}) => {
+const Configurator: React.FC = () => {
     // Default config
     const [data, setData] = useState<PCConfigI>(new PCConfig());
 

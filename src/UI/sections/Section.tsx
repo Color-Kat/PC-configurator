@@ -1,4 +1,4 @@
-import React, {memo, ReactNode} from "react";
+import React, {ReactNode} from "react";
 
 // Black background
 export const Section: React.FC<{
