@@ -87,7 +87,7 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                         placeholder="Название товара"
                         autoComplete="off"
                         name="title"
-                        value={data[type].title}
+                        value={data[type].title.replaceAll('+', ' ')}
                         onChange={changeFormHandler}
                         title={
                             type == "CPU" &&
