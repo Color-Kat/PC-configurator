@@ -242,11 +242,9 @@ const Configurator: React.FC = () => {
 
         if (shortLink)
             copyToClipboard(shortLink);
-        // navigator.clipboard.writeText(shortLink);
         else {
-            setError("Слишком много данных для создания короткой ссылки.\nПопробуйте сократить некоторые ссылки и убрать кириллицу из названий.\nНо мы всё равно сохранили длинную ссылку в ваш буфер обмена.");
-            // navigator.clipboard.writeText(longURL.href);
             copyToClipboard(longURL.href);
+            setError("Слишком много данных для создания короткой ссылки.\nПопробуйте сократить некоторые ссылки и убрать кириллицу из названий.\nНо мы всё равно сохранили длинную ссылку в ваш буфер обмена.");
         }
 
         setHasCopied(true);
