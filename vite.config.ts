@@ -7,9 +7,11 @@ export default defineConfig({
     build: {
         outDir: path.join(__dirname, "public"),
     },
+    publicDir: 'copyToPublic',
     base: './',
     plugins: [
         react({}),
+
     ],
     resolve: {
         alias: {

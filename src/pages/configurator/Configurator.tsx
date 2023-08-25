@@ -295,18 +295,18 @@ const Configurator: React.FC = () => {
                     </p>}
             </Section>
 
-            <Section className="md:px-6 md:py-6">
-                <h1 className="text-3xl font-play text-app-dark">Есть вопросы по железу?</h1>
-                <p className="text-gray-700 mt-1.5 mb-5">Спросите RX4D лично через FanTalks и получите ответ в течение
-                    всего нескольких часов!</p>
+            {/*<Section className="md:px-6 md:py-6">*/}
+            {/*    <h1 className="text-3xl font-play text-app-dark">Есть вопросы по железу?</h1>*/}
+            {/*    <p className="text-gray-700 mt-1.5 mb-5">Спросите RX4D лично через FanTalks и получите ответ в течение*/}
+            {/*        всего нескольких часов!</p>*/}
 
-                <a
-                    type="button"
-                    href="https://fantalks.io/r/rx4d_stream"
-                    className="uppercase text-lg font-bold font-play tracking-wider text-gray-100 px-5 py-2 rounded-lg transition-colors bg-gradient-to-tl from-blue-400 to-indigo-400 hover:from-blue-500"
-                    target="_blank"
-                >Задать вопрос</a>
-            </Section>
+            {/*    <a*/}
+            {/*        type="button"*/}
+            {/*        href="https://fantalks.io/r/rx4d_stream"*/}
+            {/*        className="uppercase text-lg font-bold font-play tracking-wider text-gray-100 px-5 py-2 rounded-lg transition-colors bg-gradient-to-tl from-blue-400 to-indigo-400 hover:from-blue-500"*/}
+            {/*        target="_blank"*/}
+            {/*    >Задать вопрос</a>*/}
+            {/*</Section>*/}
         </div>
 
     );
