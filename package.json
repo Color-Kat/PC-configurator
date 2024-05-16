@@ -37,6 +37,7 @@
     "sass": "^1.62.0",
     "tailwindcss": "^2.2.2",
     "typescript": "^5.0.2",
-    "vite": "^4.3.0"
+    "vite": "^4.3.0",
+    "vite-plugin-static-copy": "^0.16.0"
   }
 }

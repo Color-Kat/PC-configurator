@@ -12,7 +12,7 @@ interface PCItemInterface {
     changeDataByType: (type: keyof typeof partTypes, data: any) => void;
 }
 
-const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
+const PCItem: React.FC<PCItemInterface> = ({ type, data, changeDataByType }) => {
 
     /**
      * Change PC part key value by input name attribute
@@ -120,7 +120,8 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                     />
 
                     <div
-                        className="md:col-span-1 h-14 px-3 py-1 rounded-xl flex shadow bg-app bg-opacity-75 items-center">
+                        className="md:col-span-1 h-14 px-3 py-1 rounded-xl flex shadow bg-app bg-opacity-75 items-center"
+                    >
 
                         <button
                             className="font-play font-bold text-3xl ml-2 mr-4 text-app-dark hover:text-gray-400"
@@ -132,9 +133,10 @@ const PCItem: React.FC<PCItemInterface> = ({type, data, changeDataByType}) => {
                         <input
                             type="number"
                             className="text-center bg-transparent outline-none flex-1 min-w-0 placeholder-gray-500"
-                            style={{maxWidth: '50px', margin: 'auto'}}
+                            style={{ maxWidth: '50px', margin: 'auto' }}
                             placeholder="Кол-во"
-                            autoComplete="off" min="0"
+                            autoComplete="off"
+                            min="0"
                             value={data[type].quantity}
                             name="quantity"
                             onChange={changeFormHandler}
@@ -174,7 +176,7 @@ const getPCConfigFromURL: () => PCConfigI = () => {
             const [type, field, value] = decodeURIComponent(item).split(/@|=/);
 
             if (!(type in data)) {
-                data[type] = {...defaultPCItemData};
+                data[type] = { ...defaultPCItemData };
             }
 
             data[type][field] = value;
@@ -262,19 +264,56 @@ const Configurator: React.FC = () => {
                 </p>
 
                 <div className="space-y-2 mt-7">
-                    <PCItem type="GPU" data={data} changeDataByType={changeDataByType}/>
-                    <PCItem type="CPU" data={data} changeDataByType={changeDataByType}/>
-                    <PCItem type="motherboard" data={data} changeDataByType={changeDataByType}/>
-                    <PCItem type="RAM" data={data} changeDataByType={changeDataByType}/>
-                    <PCItem type="PSU" data={data} changeDataByType={changeDataByType}/>
-                    <PCItem type="storage" data={data} changeDataByType={changeDataByType}/>
-                    <PCItem type="coolingSystem" data={data} changeDataByType={changeDataByType}/>
-                    <PCItem type="PCCase" data={data} changeDataByType={changeDataByType}/>
-                    <PCItem type="fans" data={data} changeDataByType={changeDataByType}/>
+                    <PCItem
+                        type="GPU"
+                        data={data}
+                        changeDataByType={changeDataByType}
+                    />
+                    <PCItem
+                        type="CPU"
+                        data={data}
+                        changeDataByType={changeDataByType}
+                    />
+                    <PCItem
+                        type="motherboard"
+                        data={data}
+                        changeDataByType={changeDataByType}
+                    />
+                    <PCItem
+                        type="RAM"
+                        data={data}
+                        changeDataByType={changeDataByType}
+                    />
+                    <PCItem
+                        type="PSU"
+                        data={data}
+                        changeDataByType={changeDataByType}
+                    />
+                    <PCItem
+                        type="storage"
+                        data={data}
+                        changeDataByType={changeDataByType}
+                    />
+                    <PCItem
+                        type="coolingSystem"
+                        data={data}
+                        changeDataByType={changeDataByType}
+                    />
+                    <PCItem
+                        type="PCCase"
+                        data={data}
+                        changeDataByType={changeDataByType}
+                    />
+                    <PCItem
+                        type="fans"
+                        data={data}
+                        changeDataByType={changeDataByType}
+                    />
                 </div>
 
                 <div
-                    className="flex justify-between md:flex-row flex-col-reverse gap-5 items-center mt-7 pt-7 border-t border-app-dark">
+                    className="flex justify-between md:flex-row flex-col-reverse gap-5 items-center mt-7 pt-7 border-t border-app-dark"
+                >
 
                     <button
                         className="py-2 px-3 rounded-lg font-bold text-xl text-app bg-gradient-to-r hover:to-gray-800 from-app-dark to-gray-600 text-center"
@@ -292,7 +331,8 @@ const Configurator: React.FC = () => {
                 {error &&
                     <p className="flex justify-between items-center mt-7 border-red-600 whitespace-pre-wrap text-red-500">
                         {error}
-                    </p>}
+                    </p>
+                }
             </Section>
 
             {/*<Section className="md:px-6 md:py-6">*/}
