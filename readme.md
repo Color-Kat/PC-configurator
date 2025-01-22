@@ -15,4 +15,4 @@ This project is made for RX4D.
 
 `npm run dev`
 
-`npm run build`
+`npm run build`, then push and `npm run deploy`
