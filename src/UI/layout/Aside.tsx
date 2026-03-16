@@ -1,5 +1,6 @@
-import { AsideAd1 } from "@/components/AsideAd1";
-import { AsideAd2 } from "@/components/AsideAd2";
+import { AsideAd2 } from "@components/AsideAd2.tsx";
+import { AsideAd1 } from "@components/AsideAd1.tsx";
+import { AsideAd3 } from "@components/AsideAd3.tsx";
 import { memo } from "react";
 
 export const Aside = memo(() => {
@@ -14,6 +15,8 @@ export const Aside = memo(() => {
             <AsideAd1 />
 
             <AsideAd2 />
+
+            <AsideAd3 />
 
         </aside>
     );
