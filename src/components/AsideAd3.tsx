@@ -87,6 +87,7 @@ export const AsideAd3 = memo(() => {
                                 pomelo5,
                             ].map(screenshot => (
                                 <img
+                                    key={screenshot}
                                     src={screenshot}
                                     alt="Pomelo - приложение для анализа состава продуктов по фото. Не экономьте на здоровье - выбирайте качественные продукты с Pomelo!"
                                     className="md:w-64 w-48 rounded-lg shadow-lg"
